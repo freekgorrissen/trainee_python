@@ -1,4 +1,4 @@
-
+import matplotlib as mpl
 import pandas as pd ## tabel package
 import csv
 
@@ -32,7 +32,31 @@ import csv
 #     print(b.naam)
 #     print(b.prijs)
 
+=======
 
-pokcsv = pd.read_csv("C:/Users/fgorr/OneDrive/Desktop/Traineeship/Python/Pokemon.csv")
+pok = pd.read_csv("Pokemon.csv")
 
-print(pokcsv[pokcsv.Generation == 1])
+trimnames = []
+
+#
+for col in pok.columns:
+    nm = ""
+    for l in col:
+        if not l in ". ":
+            nm += l
+    trimnames.append(nm)
+
+trimnames[0] = "Number"
+pok.columns = trimnames
+
+numval = ["HP", "Speed", "Attack", "Defense"]
+
+pok_gen = pd.DataFrame(pok.Generation.unique())
+
+for val in numval:
+    means = pok.groupby("Generation").val.mean()
+    name = val + "_mean"
+    pok[name] = means
+
+print(pok_gen)
+
