@@ -8,7 +8,7 @@
 # Copyright:   (c) Julian 2021
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
-#from scipy import ttest_ind as tt
+from scipy.stats import ttest_ind as tt
 import numpy as np
 import matplotlib as mpl
 from matplotlib import pyplot as plt
@@ -27,8 +27,8 @@ def SalaryBy(group):
     plt.title("Average salary by " + group)
     plt.show()
 
-
 #SalaryBy('education')
+
 
 def Versus_graph(group_y, group_x):
     versus_y = dataset.groupby([group_y, group_x]).size()                                                           ##Make groups and count instances
@@ -43,11 +43,19 @@ def Versus_graph(group_y, group_x):
 #Versus_graph('sex', 'number_of_cars_owned')                                                                        ##Define what you want to count first, then define what you want your groups on the x-axis to be
 
 
-def Versus_stats(group_y, group_x):
-    versus_y =
-    #result = tt.
-    return versus_y
+def Salary__M_F_stats():
+    versus_y = dataset.groupby(['sex'])
+    result = tt(versus_y.get_group("M")['salary'], versus_y.get_group("F")['salary'])
+    return result
 
-print(Versus_stats('sex', 'salary'))
+#print(Salary__M_F_stats())
+
+
+
+
+
+
+
+
 
 
