@@ -8,6 +8,7 @@
 # Copyright:   (c) Julian 2021
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
+#from scipy import ttest_ind as tt
 import numpy as np
 import matplotlib as mpl
 from matplotlib import pyplot as plt
@@ -19,6 +20,7 @@ def SalaryBy(group):
     salary_per = dataset.groupby([group]).mean()                                                                    ## Find out how group and salary compare
     salary_per_std = dataset.groupby([group]).std()                                                                 ## Determine the standard deviation
     salary_per = salary_per.reset_index()                                                                           ## Reset index so plt can read all of the columns
+
     plt.bar(salary_per[group], salary_per['salary'], width =0.8, yerr = salary_per_std['salary'], capsize = 10)     ##Plot salary for group
     plt.xlabel(group)                                                                                               ## Some labels and titles below
     plt.ylabel("Salary")
@@ -28,23 +30,24 @@ def SalaryBy(group):
 
 #SalaryBy('education')
 
-def Versus(group_y, group_x):
-
+def Versus_graph(group_y, group_x):
     versus_y = dataset.groupby([group_y, group_x]).size()                                                           ##Make groups and count instances
 
-    plt.bar(versus_y[1], versus_y[2], width =0.8)                                                                   ##Plot for group
+    versus_y.unstack(0).plot.bar()
     plt.xlabel(group_x)                                                                                             ## Some labels and titles below
-    plt.ylabel(group_y)
-    plt.title(group_y + " versus " + group_x)
+    plt.ylabel("#")
+    plt.title(group_y + " and " + group_x)
     plt.show()
+    #return versus_y
+
+#Versus_graph('sex', 'number_of_cars_owned')                                                                        ##Define what you want to count first, then define what you want your groups on the x-axis to be
+
+
+def Versus_stats(group_y, group_x):
+    versus_y =
+    #result = tt.
     return versus_y
 
-print(Versus('occupation', 'education'))
-
-
-
-
-
-
+print(Versus_stats('sex', 'salary'))
 
 
