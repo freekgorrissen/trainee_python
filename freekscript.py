@@ -5,14 +5,15 @@ import requests
 from bs4 import BeautifulSoup
 
 """Scraping stuff"""
-#
-# URL = 'https://coinmarketcap.com/'
-# page = requests.get(URL)
-#
-# soup = BeautifulSoup(page.content, 'html.parser')
-# tabel = soup.find('tbody')
-# rijen = tabel.find_all('tr')
-#
+
+URL = 'https://coinmarketcap.com/'
+page = requests.get(URL)
+
+soup = BeautifulSoup(page.content, 'html.parser')
+tabel = soup.find('tbody')
+rijen = tabel.find_all('tr')
+
+print(rijen[1])
 # class Belegging:
 #     naam = 'onbekend'
 #     prijs = -1
@@ -32,7 +33,7 @@ from bs4 import BeautifulSoup
 # for b in beleggingen:
 #     print(b.naam)
 #     print(b.prijs)
-#
+
 
 ###############################################################################
 """Pokemon"""
@@ -76,26 +77,26 @@ from bs4 import BeautifulSoup
 # plt.show()
 """Cleaned headers"""
 
-df = pd.read_csv("102_cleaned_header.csv")
-
-# print(df.head)
-colnames = df.columns
-
-
-sex_salary = pd.DataFrame(df.groupby("sex").salary.mean())
-
-sex_salary.columns = ["mean $"]
-sex_salary["std $"] = df.groupby("sex").salary.std()
-sex_salary["median $"] = df.groupby("sex").salary.median()
-
-for col in sex_salary.columns:
-    sex_salary[col] = round(sex_salary[col], 2)
-
-print(sex_salary)
-
-male = df[df.sex == "M"]
-female = df[df.sex == "F"]
-
-p1 = plt.hist([male.salary, female.salary], bins=20)
-
-plt.show()
+# df = pd.read_csv("102_cleaned_header.csv")
+#
+# # print(df.head)
+# colnames = df.columns
+#
+#
+# sex_salary = pd.DataFrame(df.groupby("sex").salary.mean())
+#
+# sex_salary.columns = ["mean $"]
+# sex_salary["std $"] = df.groupby("sex").salary.std()
+# sex_salary["median $"] = df.groupby("sex").salary.median()
+#
+# for col in sex_salary.columns:
+#     sex_salary[col] = round(sex_salary[col], 2)
+#
+# print(sex_salary)
+#
+# male = df[df.sex == "M"]
+# female = df[df.sex == "F"]
+#
+# p1 = plt.hist([male.salary, female.salary], bins=20)
+#
+# plt.show()
