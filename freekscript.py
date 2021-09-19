@@ -3,6 +3,8 @@ import pandas as pd ## tabel package
 import csv
 import requests
 from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 """Scraping stuff"""
 
@@ -13,26 +15,26 @@ soup = BeautifulSoup(page.content, 'html.parser')
 tabel = soup.find('tbody')
 rijen = tabel.find_all('tr')
 
-print(rijen[1])
-# class Belegging:
-#     naam = 'onbekend'
-#     prijs = -1
-#
-# beleggingen = []
-#
-# for elems in range(5):
-#     belegging = Belegging()
-#     titel = rijen[elems].find_all('p')
-#     belegging.naam = titel[1].text
-#     prijs = rijen[elems].find_all('a')
-#     belegging.prijs = prijs[1].text
-#     beleggingen.append(belegging)
-#
-# #print(beleggingen)
-#
-# for b in beleggingen:
-#     print(b.naam)
-#     print(b.prijs)
+
+class Belegging:
+    naam = 'onbekend'
+    prijs = -1
+
+beleggingen = []
+
+for rij in rijen[0:10]:
+    belegging = Belegging()
+    titel = rij.find_all('p')
+    belegging.naam = titel[1].text
+    prijs = rij.find_all('a')
+    belegging.prijs = prijs[1].text
+    beleggingen.append(belegging)
+
+print("aantal: " + str(len(rijen)))
+
+for b in beleggingen:
+    print(b.naam)
+    print(b.prijs)
 
 
 ###############################################################################
