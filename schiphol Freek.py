@@ -3,6 +3,7 @@ import pandas as pd ## tabel package
 import csv
 import requests
 from bs4 import BeautifulSoup
+import time
 
 # Basis URL zonder offset
 URL = 'https://www.schiphol.nl/en/departures/?query=&date=2021-09-19&offset='
@@ -71,6 +72,7 @@ while True and offset < 201: ## offset limiet om te testen
             d['bestemming'].append(vlucht.bestemming)
 
         offset += 50
+        time.sleep(1) # 1 second wachten om database te ontlasten
 
     except:
         print("Einde bereikt")
@@ -80,18 +82,10 @@ while True and offset < 201: ## offset limiet om te testen
 
 print("Aantal vluchten: " + str(len(vluchten)))
 
-df = pd.DataFrame(data = d)
+df = pd.DataFrame(data=d)
 
-maatschappijen = df.maatschappij.unique()
+maatschappijen = df["maatschappij"].value_counts()
+maatschappijen.columns = ["Maatschappij", "Aantal vluchten"]
+maatschappijen.sort_values(by=["Aantal vluchten"])
 
-mdict = {}
-
-for m in maatschappijen:
-    mdict[m] = 0
-
-for v in vluchten:
-    mdict[v.maatschappij] += 1
-
-
-# for key in mdict:
-#     print(key + ": " + str(mdict[key]))
+print(maatschappijen.head)
